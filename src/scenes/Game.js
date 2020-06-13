@@ -93,6 +93,7 @@ export default class Game extends Phaser.Scene {
         sprite.x = -halfWidth
     }
   }
+
   addCarrotAbove(sprite) {
     const y = sprite.y - sprite.displayHeight
     const carrot = this.carrots.get(sprite.x, y, 'carrot')
@@ -103,6 +104,7 @@ export default class Game extends Phaser.Scene {
 
     return carrot
   }
+  
   handleCollectCarrot(player, carrot) {
     this.carrots.killAndHide(carrot)
     this.physics.world.disableBody(carrot.body)
