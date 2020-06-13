@@ -2,6 +2,14 @@ import Phaser from '../lib/phaser.js'
 import Carrot from '../game/Carrot.js'
 
 export default class Game extends Phaser.Scene {
+
+  carrotsCollected = 0
+  carrots
+  cursors
+  platforms
+  player
+
+
   constructor() {
     super('game')
   }
@@ -50,12 +58,16 @@ export default class Game extends Phaser.Scene {
       undefined,
       this
     )
+
   }
  
   update(t, dt) {
+    // remove carrots when it goes off the screen
+
     this.platforms.children.iterate(child => {
       const platform = child
       const scrollY = this.cameras.main.scrollY
+
       if (platform.y >= scrollY + 700) {
         platform.y = scrollY - Phaser.Math.Between(50, 100)
         platform.body.updateFromGameObject()
@@ -81,7 +93,8 @@ export default class Game extends Phaser.Scene {
     this.player.body.checkCollision.right = false
 
     this.horizontalWrap(this.player)
-    this.addCarrotAbove(this.player)
+    // respawn infinite carrots above the bunny
+    // this.addCarrotAbove(this.player)
   }
 
   horizontalWrap(sprite) {
@@ -98,9 +111,14 @@ export default class Game extends Phaser.Scene {
     const y = sprite.y - sprite.displayHeight
     const carrot = this.carrots.get(sprite.x, y, 'carrot')
 
+    carrot.setActive(true)
+    carrot.setVisible(true)
+
     this.add.existing(carrot)
 
     carrot.body.setSize(carrot.width, carrot.height)
+
+    this.physics.world.enable(carrot)
 
     return carrot
   }
@@ -108,5 +126,7 @@ export default class Game extends Phaser.Scene {
   handleCollectCarrot(player, carrot) {
     this.carrots.killAndHide(carrot)
     this.physics.world.disableBody(carrot.body)
+
+    this.carrotsCollected++
   }
 }
