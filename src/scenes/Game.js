@@ -14,6 +14,10 @@ export default class Game extends Phaser.Scene {
     super('game')
   }
 
+  init() {
+    this.carrotsCollected = 0
+  }
+
   preload() {
     this.load.image('background', 'assets/Background/bg_layer1.png')
     this.load.image('platform', 'assets/Environment/ground_grass.png')
@@ -103,7 +107,7 @@ export default class Game extends Phaser.Scene {
 
     const bottomPlatform = this.findBottomMostPlatform()
     if (this.player.y > bottomPlatform.y + 200) {
-      console.log('game over')
+      this.scene.start('game-over')
     }
   }
 
