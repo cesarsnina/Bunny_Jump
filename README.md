@@ -1,7 +1,5 @@
 # Bunny Jump
 
-To open you can use a vs extension called 'Live Server'.
-
 ## Introduction
 
 The game is an inifinite jumper like Doodle Jump.
@@ -9,6 +7,28 @@ The game is an inifinite jumper like Doodle Jump.
 The objective is to get as high up as you can by jumping on platforms that disappear as they leave the bottom of the screen.
 
 Falling is a death sentence. Well, virtual death sentence. You can always respawn.
+
+## How to play
+
+Press the LEFT and RIGHT ARROW KEYS to move your bunny. 
+The more carrots you collect the higher your score.
+If you accidently fall, press the SPACE BAR to play again.
+
+## setup
+
+You can fork or clone my code on my Github
+https://github.com/C3sar207/Bunny_Jump
+
+You will only need a browser like Google Chrome.
+A text editor like Visual Studio Code. 
+To open you can use a VS Code extension called 'Live Server'.
+Or Download WAMP or something similar to run locally
+
+Download the images here
+https://kenney.nl/assets/jumper-pack
+
+Download the audio here
+https://kenney.nl/assets/digital-audio
 
 ## Why Web and not Unity?
 
