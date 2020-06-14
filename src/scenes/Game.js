@@ -99,7 +99,12 @@ export default class Game extends Phaser.Scene {
 
     this.horizontalWrap(this.player)
     // the line below spawns infinite carrots above the bunny
-    this.addCarrotAbove(this.player)
+    // this.addCarrotq2wAbove(this.player)
+
+    const bottomPlatform = this.findBottomMostPlatform()
+    if (this.player.y > bottomPlatform.y + 200) {
+      console.log('game over')
+    }
   }
 
   horizontalWrap(sprite) {
@@ -137,4 +142,21 @@ export default class Game extends Phaser.Scene {
     const value =  `Carrots: ${this.carrotsCollected}`
     this.carrotsCollectedText.text = value
   }
+
+  findBottomMostPlatform(){
+    const platforms = this.platforms.getChildren()
+    let bottomPlatform = platforms[0]
+
+    for (let i = 1; i < platforms.length; i++) {
+      const platform = platforms[i]
+
+      if (platform.y < bottomPlatform.y) {
+        continue
+      }
+      bottomPlatform = platform
+    }
+
+    return bottomPlatform
+  }
+
 }
