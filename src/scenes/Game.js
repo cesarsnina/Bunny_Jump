@@ -22,7 +22,9 @@ export default class Game extends Phaser.Scene {
     this.load.image('background', 'assets/Background/bg_layer1.png')
     this.load.image('platform', 'assets/Environment/ground_grass.png')
     this.load.image('bunny-stand', 'assets/Player/bunny1_stand.png')
+    this.load.image('bunny-jump', 'assets/Player/bunny1_jump.png')
     this.load.image('carrot', 'assets/Items/carrot.png')
+    this.load.audio('jump', 'assets/sfx/mp3_Audio/phaseJump1-mp3.mp3')
     this.cursors = this.input.keyboard.createCursorKeys()
   }
 
@@ -87,6 +89,13 @@ export default class Game extends Phaser.Scene {
     const touchingDown = this.player.body.touching.down
     if (touchingDown) {
       this.player.setVelocityY(-300)
+      this.player.setTexture('bunny-jump')
+      this.sound.play('jump')
+    }
+
+    const vY = this.player.body.velocity.y
+    if (vY > 0 && this.player.texture.key !== 'bunny-stand') {
+      this.player.setTexture('bunny-stand')
     }
 
     if (this.cursors.left.isDown && !touchingDown) {
@@ -141,9 +150,10 @@ export default class Game extends Phaser.Scene {
     this.carrots.killAndHide(carrot)
     this.physics.world.disableBody(carrot.body)
 
+    const value =  `Carrots: ${this.carrotsCollected}`
+
     this.carrotsCollected++
 
-    const value =  `Carrots: ${this.carrotsCollected}`
     this.carrotsCollectedText.text = value
   }
 
