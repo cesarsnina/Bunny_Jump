@@ -8,7 +8,7 @@ export default class Game extends Phaser.Scene {
   cursors
   platforms
   player
-
+  carrotsCollectedText
 
   constructor() {
     super('game')
@@ -59,6 +59,11 @@ export default class Game extends Phaser.Scene {
       this
     )
 
+    const style = { color: '#000', fontSize: 24 }
+    this.carrotsCollectedText = this.add.text(
+        240, 10, 'Carrots: 0', style)
+        .setScrollFactor(0)
+        .setOrigin(0.5, 0)
   }
  
   update(t, dt) {
@@ -93,8 +98,8 @@ export default class Game extends Phaser.Scene {
     this.player.body.checkCollision.right = false
 
     this.horizontalWrap(this.player)
-    // respawn infinite carrots above the bunny
-    // this.addCarrotAbove(this.player)
+    // the line below spawns infinite carrots above the bunny
+    this.addCarrotAbove(this.player)
   }
 
   horizontalWrap(sprite) {
@@ -128,5 +133,8 @@ export default class Game extends Phaser.Scene {
     this.physics.world.disableBody(carrot.body)
 
     this.carrotsCollected++
+
+    const value =  `Carrots: ${this.carrotsCollected}`
+    this.carrotsCollectedText.text = value
   }
 }
